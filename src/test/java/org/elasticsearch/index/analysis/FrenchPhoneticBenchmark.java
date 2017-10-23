@@ -3,7 +3,6 @@ package org.elasticsearch.index.analysis;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.language.RefinedSoundex;
 import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.runner.options.TimeValue;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

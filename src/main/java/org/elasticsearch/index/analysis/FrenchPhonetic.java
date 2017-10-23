@@ -5,9 +5,7 @@ import org.apache.commons.codec.StringEncoder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilter;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 //1 for in sound
 //2 for é sound
@@ -29,6 +27,10 @@ public class FrenchPhonetic implements StringEncoder {
 
     private static final List<Character> SOUND_2_ACCENTUATED_CHARS = Arrays.asList('É', 'È', 'Ê', 'Ë');
 
+    private static final Map<String,String> SPECIAL_CASES = new HashMap<String,String>(){{
+        put("PRIX","PRI");
+    }};
+
     @Override
     public String encode(String s) throws EncoderException {
         String cleanedString = clean(s);
@@ -37,10 +39,11 @@ public class FrenchPhonetic implements StringEncoder {
             return cleanedString;
         }
 
-
-        String result = operatePhonetic("", charAt(cleanedString, 0), substring(cleanedString, 1, cleanedString.length()));
-
-        return result;
+        String specialCase = SPECIAL_CASES.get(cleanedString);
+        if(specialCase != null){
+            return specialCase;
+        }
+        return operatePhonetic("", charAt(cleanedString, 0), substring(cleanedString, 1, cleanedString.length()));
     }
 
     private String operatePhonetic(String acc, Character c, String tail) {
@@ -85,6 +88,10 @@ public class FrenchPhonetic implements StringEncoder {
                 return operatePhonetic(acc, tail.charAt(0), substring(tail, 1, tail.length()));
             }
 
+            // SC as S
+            if(c == 'S' && tail.length() >=2 && tail.charAt(0) == 'C' && (tail.charAt(1) == 'E' ||tail.charAt(1) == 'I' || tail.charAt(1) == 'Y')){
+                return operatePhonetic(acc + '5', tail.charAt(1), substring(tail, 2, tail.length()));
+            }
             //C as S
             if (c == 'C' && (tail.charAt(0) == 'E' || tail.charAt(0) == 'I' || tail.charAt(0) == 'Y')) {
                 return operatePhonetic(acc + '5', tail.charAt(0), substring(tail, 1, tail.length()));
@@ -99,11 +106,18 @@ public class FrenchPhonetic implements StringEncoder {
                 }
             }
 
+            if (c == 'O' && "IX".equals(tail)) {
+                return operatePhonetic(acc + "OI", null,"");
+            }
+
             if (c == 'O' && tail.length() >= 2 && charAt(tail, 0) == 'E' && charAt(tail, 1) == 'U') {
                 return operatePhonetic(acc + "8", charAt(tail, 2), substring(tail, 3, tail.length()));
             }
 
             if (c == 'E' && charAt(tail, 0) == 'U') {
+                if(tail.length() == 2 && tail.charAt(1) == 'X'){
+                    return operatePhonetic(acc + "8",null,"");
+                }
                 return operatePhonetic(acc + "8", charAt(tail, 1), substring(tail, 2, tail.length()));
             }
 
@@ -133,7 +147,6 @@ public class FrenchPhonetic implements StringEncoder {
                 }
             }
 
-
             //W as V
             if (c == 'W') {
                 return operatePhonetic(acc + 'V', tail.charAt(0), substring(tail, 1, tail.length()));
@@ -154,14 +167,22 @@ public class FrenchPhonetic implements StringEncoder {
                 return operatePhonetic(acc + 'F', charAt(tail, 1), substring(tail, 2, tail.length()));
             }
 
-
             String replacedThreeLettersINSound = replaceThreeLettersINSound(acc, c, tail, 'A', 'E');
             if (replacedThreeLettersINSound != null) {
                 return replacedThreeLettersINSound;
             }
 
+            // AIX as È (2)
+            if(c == 'A' && tail.length() == 2 && "IX".equals(tail)){
+                return operatePhonetic(acc + "2",null,"");
+            }
+
             //EAU as O
             if (c == 'E' && tail.length() >= 2 && tail.charAt(0) == 'A' && tail.charAt(1) == 'U') {
+                // Case EAUX as O
+                if(tail.length() == 3 && tail.charAt(2) == 'X'){
+                    return operatePhonetic(acc + "O", null, "");
+                }
                 return operatePhonetic(acc + "O", charAt(tail, 2), substring(tail, 3, tail.length()));
             }
 
@@ -175,12 +196,9 @@ public class FrenchPhonetic implements StringEncoder {
                 return handleJeanCase;
             }
 
-
             if (c == 'T' && tail.length() >= 3 && VOWELS.contains(charAt(acc, acc.length() - 1)) && "ION".equals(substring(tail, 0, 3))) {
                 return operatePhonetic(acc + "S", charAt(tail, 0), substring(tail, 1, tail.length()));
             }
-
-
         }
 
         if (c == 'E') {
@@ -206,6 +224,7 @@ public class FrenchPhonetic implements StringEncoder {
         return c != null && character != null && DOUBLE_CONSONANT.contains(c.charValue()) && character.charValue() == c.charValue();
     }
 
+    // end X managed here
     private String replaceTwoLettersSounds(String acc, char c, String tail) {
 
         //Trailing ER, ET and EZ as 2
@@ -222,6 +241,9 @@ public class FrenchPhonetic implements StringEncoder {
 
         // AU as O
         if (c == 'A' && tail.charAt(0) == 'U') {
+            if(tail.length() == 2 && tail.charAt(1) == 'X'){
+                return operatePhonetic(acc + 'O', null,"");
+            }
             return operatePhonetic(acc + 'O', charAt(tail, 1), substring(tail, 2, tail.length()));
         }
 

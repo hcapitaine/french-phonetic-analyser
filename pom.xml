@@ -14,7 +14,7 @@
         <junit.version>4.12</junit.version>
         <assertj.version>3.5.1</assertj.version>
         <assertj.version>3.5.1</assertj.version>
-        <es.version>5.4.2</es.version>
+        <es.version>5.6.2</es.version>
         <lucene.version>6.5.1</lucene.version>
         <jmh.version>1.11.2</jmh.version>
         <es.phonetic.version>2.7.0</es.phonetic.version>

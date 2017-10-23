@@ -35,6 +35,35 @@ public class FrenchPhoneticTest {
     }
 
     @Test
+    public void testMultipleCaseX()throws EncoderException {
+        FrenchPhonetic p = new FrenchPhonetic();
+        // Case SC sounds like 1 S and final X doesn't sound
+        Assertions.assertThat(p.encode("SCEAUX")).isEqualTo("5O");
+
+        // Sound X
+        Assertions.assertThat(p.encode("BOX")).isEqualTo("BOX");
+        Assertions.assertThat(p.encode("INTOX")).isEqualTo("1TOX");
+        Assertions.assertThat(p.encode("ONYX")).isEqualTo("ONIX");
+        Assertions.assertThat(p.encode("SILEX")).isEqualTo("5IL2X");
+        Assertions.assertThat(p.encode("REFLEX")).isEqualTo("R2FL2X");
+        Assertions.assertThat(p.encode("TRIPLEX")).isEqualTo("TRIPL2X");
+        Assertions.assertThat(p.encode("REMIX")).isEqualTo("REMIX");
+
+        // Muted X
+        Assertions.assertThat(p.encode("JOUJOUX")).isEqualTo("JOUJOU");
+        Assertions.assertThat(p.encode("BIJOUX")).isEqualTo("BIJOU");
+        Assertions.assertThat(p.encode("BAUX")).isEqualTo("BO");
+        Assertions.assertThat(p.encode("EPOUX")).isEqualTo("2POU");
+        Assertions.assertThat(p.encode("ROUX")).isEqualTo("ROU");
+        Assertions.assertThat(p.encode("PRIX")).isEqualTo("PRI");
+        Assertions.assertThat(p.encode("NOIX")).isEqualTo("NOI");
+        Assertions.assertThat(p.encode("CROIX")).isEqualTo("KROI");
+        Assertions.assertThat(p.encode("VOIX")).isEqualTo("VOI");
+        Assertions.assertThat(p.encode("VOIE")).isEqualTo("VOI");
+        Assertions.assertThat(p.encode("TAUX")).isEqualTo("TO");
+    }
+
+    @Test
     public void testEncodeWithFinalX() throws EncoderException {
         FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
         String encode = frenchPhonetic.encode("CEDEX");
