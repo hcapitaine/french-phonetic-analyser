@@ -93,6 +93,11 @@ public class FrenchPhonetic implements StringEncoder {
                 return operatePhonetic(acc, tail.charAt(0), substring(tail, 1, tail.length()));
             }
 
+            //SC as S
+            if(c == 'S' && tail.length() >=2 && tail.charAt(0) == 'C' && (tail.charAt(1) == 'E' ||tail.charAt(1) == 'I' || tail.charAt(1) == 'Y')){
+                return operatePhonetic(acc + '5', tail.charAt(1), substring(tail, 2, tail.length()));
+            }
+
             //C as S
             if (c == 'C' && (tail.charAt(0) == 'E' || tail.charAt(0) == 'I' || tail.charAt(0) == 'Y')) {
                 return operatePhonetic(acc + '5', tail.charAt(0), substring(tail, 1, tail.length()));
