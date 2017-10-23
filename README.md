@@ -28,6 +28,7 @@ Chaque version du plugin est taggué sous la forme 1.0.0-5.4.2
 
 Contributeurs:
 
-Harold Capitaine
-Alexandre Pocheau  
-Jonathan Baranzini
+* Harold Capitaine
+* Alexandre Pocheau  
+* Jonathan Baranzini
+* Yves Mathieu Rideau Baudin
