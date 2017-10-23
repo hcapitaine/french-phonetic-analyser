@@ -66,14 +66,14 @@ public class FrenchPhonetic implements StringEncoder {
                             || charAt(acc, acc.length() - 1) == 'O'
                             || (acc.length() >= 2 && "OU".equals(substring(acc, acc.length() - 2, acc.length())))
                             || (
-                                acc.length() >= 2
+                            acc.length() >= 2
                                     && "OI".equals(substring(acc, acc.length() - 2, acc.length()))
-                                )
+                    )
                             || (
-                                acc.length() >= 3
+                            acc.length() >= 3
                                     && !VOWELS.contains(charAt(acc, acc.length() - 3))
                                     && "RI".equals(substring(acc, acc.length() - 2, acc.length()))
-                                )
+                    )
                             ) {
                         return acc;
                     }

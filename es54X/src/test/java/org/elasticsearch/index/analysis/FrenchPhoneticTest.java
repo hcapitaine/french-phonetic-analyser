@@ -757,4 +757,11 @@ public class FrenchPhoneticTest {
         String encode = frenchPhonetic.encode("CROIX");
         Assertions.assertThat(encode).isEqualTo("KROI");
     }
+
+    @Test
+    public void testWithSCasS() throws EncoderException {
+        FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
+        String encode = frenchPhonetic.encode("ASCENSION");
+        Assertions.assertThat(encode).isEqualTo("A535I4");
+    }
 }
