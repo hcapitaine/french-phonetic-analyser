@@ -30,3 +30,4 @@ Contributeurs:
 
 Harold Capitaine
 Alexandre Pocheau  
+Jonathan Baranzini
