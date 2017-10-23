@@ -102,6 +102,18 @@ public class FrenchPhonetic implements StringEncoder {
             if (c == 'C' && (tail.charAt(0) == 'E' || tail.charAt(0) == 'I' || tail.charAt(0) == 'Y')) {
                 return operatePhonetic(acc + '5', tail.charAt(0), substring(tail, 1, tail.length()));
             } else {
+                if(c == 'C' && charAt(tail, 0) == 'H'){
+                    //CH followed by 2 vowels as K
+                    if(VOWELS.contains(charAt(tail, 1)) && VOWELS.contains(charAt(tail, 2))){
+                        return operatePhonetic(acc +'K', charAt(tail, 1), substring(tail, 2, tail.length()));
+                    } else {
+                        //CHR / CHL as KR / KL
+                        if((charAt(tail, 1) == 'R' || charAt(tail, 1) == 'L') && VOWELS.contains(charAt(tail, 2))){
+                            return operatePhonetic(acc +'K', charAt(tail, 1), substring(tail, 2, tail.length()));
+                        }
+                        return operatePhonetic(acc +"C", charAt(tail, 0), substring(tail, 1, tail.length()));
+                    }
+                }
                 //C as K
                 if (c == 'C' && tail.charAt(0) != 'E' && tail.charAt(0) != 'I' && tail.charAt(0) != 'Y' && tail.charAt(0) != 'H') {
                     if (!acc.isEmpty() && charAt(acc, acc.length() - 1) == 'K' || charAt(tail, 0) == 'K') {

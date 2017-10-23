@@ -764,4 +764,11 @@ public class FrenchPhoneticTest {
         String encode = frenchPhonetic.encode("ASCENSION");
         Assertions.assertThat(encode).isEqualTo("A535I4");
     }
+
+    @Test
+    public void testEncodeCHFollowedDoubleVowels() throws EncoderException {
+        FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
+        String result = frenchPhonetic.encode("michael");
+        Assertions.assertThat(result).isEqualTo("MIKA2L");
+    }
 }
