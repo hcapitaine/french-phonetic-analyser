@@ -27,21 +27,12 @@ public class FrenchPhonetic implements StringEncoder {
 
     private static final List<Character> SOUND_2_ACCENTUATED_CHARS = Arrays.asList('É', 'È', 'Ê', 'Ë');
 
-    private static final Map<String,String> SPECIAL_CASES = new HashMap<String,String>(){{
-        put("PRIX","PRI");
-    }};
-
     @Override
     public String encode(String s) throws EncoderException {
         String cleanedString = clean(s);
 
         if (cleanedString == null || cleanedString.length() == 0) {
             return cleanedString;
-        }
-
-        String specialCase = SPECIAL_CASES.get(cleanedString);
-        if(specialCase != null){
-            return specialCase;
         }
         return operatePhonetic("", charAt(cleanedString, 0), substring(cleanedString, 1, cleanedString.length()));
     }
@@ -170,6 +161,11 @@ public class FrenchPhonetic implements StringEncoder {
             String replacedThreeLettersINSound = replaceThreeLettersINSound(acc, c, tail, 'A', 'E');
             if (replacedThreeLettersINSound != null) {
                 return replacedThreeLettersINSound;
+            }
+
+            // RIX as RI
+            if(c == 'R' && "IX".equals(tail)){
+                return operatePhonetic(acc + "RI",null,"");
             }
 
             // AIX as È (2)
