@@ -18,6 +18,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.galerieslafayette.analyzer</groupId>
+            <artifactId>analyzer-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.elasticsearch</groupId>
