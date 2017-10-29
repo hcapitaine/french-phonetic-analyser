@@ -41,6 +41,10 @@ public class FrenchPhoneticTest {
                 .encoder(new BodyStringEncoder(esClientMapper))
                 .target(ESClient.class, "http://localhost:9222");
     }
+    @Test
+    public void test_analyzer_with_version_51X() throws IOException, InterruptedException {
+        execute_test("5.1."+System.getProperty("es51X.version"), "es-5.1.X.zip");
+    }
 
     @Test
     public void test_analyzer_with_version_52X() throws IOException, InterruptedException {

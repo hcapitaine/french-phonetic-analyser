@@ -9,6 +9,7 @@
 
     <modules>
         <module>analyzer-core</module>
+        <module>es51X</module>
         <module>es52X</module>
         <module>es53X</module>
         <module>es54X</module>
@@ -29,6 +30,7 @@
         <commons-io.version>2.6</commons-io.version>
         <commons-codec.version>1.10</commons-codec.version>
 
+        <es51X.version>2</es51X.version>
         <es52X.version>2</es52X.version>
         <es53X.version>3</es53X.version>
         <es54X.version>3</es54X.version>

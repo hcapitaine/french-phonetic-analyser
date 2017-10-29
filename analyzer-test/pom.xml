@@ -16,6 +16,12 @@
     <dependencies>
         <dependency>
             <groupId>com.galerieslafayette.analyzer</groupId>
+            <artifactId>es-5.1.X</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.galerieslafayette.analyzer</groupId>
             <artifactId>es-5.2.X</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
@@ -97,6 +103,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
+                        <es51X.version>${es51X.version}</es51X.version>
                         <es52X.version>${es52X.version}</es52X.version>
                         <es53X.version>${es53X.version}</es53X.version>
                         <es54X.version>${es54X.version}</es54X.version>
@@ -119,7 +126,7 @@
                         </goals>
                         <configuration>
                             <includeArtifactIds>
-                                es-5.2.X,es-5.3.X,es-5.4.X,es-5.5.X,es-5.6.X,es-6.0.X
+                                es-5.1.X,es-5.2.X,es-5.3.X,es-5.4.X,es-5.5.X,es-5.6.X,es-6.0.X
                             </includeArtifactIds>
                             <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
                             <stripVersion>true</stripVersion>
