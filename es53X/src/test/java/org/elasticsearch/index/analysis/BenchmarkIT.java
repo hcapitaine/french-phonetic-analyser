@@ -1,6 +1,7 @@
 package org.elasticsearch.index.analysis;
 
 import org.junit.Test;
+import org.openjdk.jmh.results.RunResult;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -11,6 +12,7 @@ import org.openjdk.jmh.runner.options.TimeValue;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 
 public class BenchmarkIT {
 

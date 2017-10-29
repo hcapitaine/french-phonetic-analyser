@@ -1,4 +1,4 @@
-package com.galerieslafayette.analyzer.es56x;
+package com.galerieslafayette.analyzer;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import static java.lang.ClassLoader.getSystemResource;
 import static java.lang.ClassLoader.getSystemResourceAsStream;
 
-public class FrenchPhoneticIT {
+public class FrenchPhoneticTest {
 
     private String INDEX_TYPE = "my_type";
 
@@ -43,8 +43,18 @@ public class FrenchPhoneticIT {
     }
 
     @Test
+    public void test_analyzer_with_version_53X() throws IOException, InterruptedException {
+        execute_test("5.3."+System.getProperty("es53X.version"), "es-5.3.X.zip");
+    }
+
+    @Test
     public void test_analyzer_with_version_54X() throws IOException, InterruptedException {
         execute_test("5.4."+System.getProperty("es54X.version"), "es-5.4.X.zip");
+    }
+
+    @Test
+    public void test_analyzer_with_version_55X() throws IOException, InterruptedException {
+        execute_test("5.5."+System.getProperty("es55X.version"), "es-5.5.X.zip");
     }
 
     @Test

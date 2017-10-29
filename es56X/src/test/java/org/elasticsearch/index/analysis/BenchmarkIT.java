@@ -32,7 +32,7 @@ public class BenchmarkIT {
                 .shouldDoGC(true)
                 .jvmArgs("-server")
                 .resultFormat(ResultFormatType.JSON)
-                .result(targetFolder+FrenchPhoneticBenchmark.class.getName() + ".jmh.json")
+                .result(targetFolder+"/"+FrenchPhoneticBenchmark.class.getName() + ".jmh.json")
         .build();
 
         new Runner(opt).run();

@@ -9,11 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>es-5.4.X</artifactId>
+    <artifactId>es-5.3.X</artifactId>
     <description>French phonetic analyzer that encodes string as pronounced</description>
 
     <properties>
-        <lucene.version>6.5.1</lucene.version>
+        <lucene.version>6.4.2</lucene.version>
     </properties>
 
     <dependencies>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>5.4.${es54X.version}</version>
+            <version>5.3.${es53X.version}</version>
         </dependency>
 
         <dependency>

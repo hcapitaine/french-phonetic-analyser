@@ -13,7 +13,6 @@
     <description>French phonetic analyzer that encodes string as pronounced</description>
 
     <properties>
-        <commons-codec.version>1.10</commons-codec.version>
         <lucene.version>6.6.1</lucene.version>
     </properties>
 
@@ -33,12 +32,6 @@
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-analyzers-phonetic</artifactId>
             <version>${lucene.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>${commons-codec.version}</version>
         </dependency>
 
     </dependencies>

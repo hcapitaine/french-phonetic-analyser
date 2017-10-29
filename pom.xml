@@ -9,7 +9,9 @@
 
     <modules>
         <module>analyzer-core</module>
+        <module>es53X</module>
         <module>es54X</module>
+        <module>es55X</module>
         <module>es56X</module>
         <module>analyzer-test</module>
     </modules>
@@ -23,9 +25,12 @@
         <mockito.version>2.0.79-beta</mockito.version>
         <commons-lang.version>3.3.2</commons-lang.version>
         <commons-io.version>2.6</commons-io.version>
+        <commons-codec.version>1.10</commons-codec.version>
 
-        <es56X.version>3</es56X.version>
+        <es53X.version>3</es53X.version>
         <es54X.version>3</es54X.version>
+        <es55X.version>3</es55X.version>
+        <es56X.version>3</es56X.version>
     </properties>
 
     <dependencyManagement>
@@ -49,6 +54,12 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
         </dependency>
 
         <dependency>
@@ -93,6 +104,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.20.1</version>
                         <executions>
                             <execution>
                                 <id>integration-test</id>
