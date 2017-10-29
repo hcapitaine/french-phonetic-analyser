@@ -1,0 +1,14 @@
+{
+  "my_type": {
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "content": {
+        "type": "text",
+        "analyzer": "phonetic_index",
+        "search_analyzer": "phonetic_search"
+      }
+    }
+  }
+}

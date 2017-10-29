@@ -11,6 +11,7 @@
         <module>analyzer-core</module>
         <module>es54X</module>
         <module>es56X</module>
+        <module>analyzer-test</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -21,6 +22,10 @@
         <jmh.version>1.11.2</jmh.version>
         <mockito.version>2.0.79-beta</mockito.version>
         <commons-lang.version>3.3.2</commons-lang.version>
+        <commons-io.version>2.6</commons-io.version>
+
+        <es56X.version>3</es56X.version>
+        <es54X.version>3</es54X.version>
     </properties>
 
     <dependencyManagement>
@@ -38,6 +43,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <dependency>

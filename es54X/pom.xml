@@ -10,10 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>es-5.4.X</artifactId>
+    <description>French phonetic analyzer that encodes string as pronounced</description>
 
     <properties>
         <commons-codec.version>1.9</commons-codec.version>
-        <es54X.version>3</es54X.version>
         <lucene.version>6.5.1</lucene.version>
     </properties>
 
