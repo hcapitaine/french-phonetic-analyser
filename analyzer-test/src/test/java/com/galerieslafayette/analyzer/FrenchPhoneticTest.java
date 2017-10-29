@@ -43,6 +43,11 @@ public class FrenchPhoneticTest {
     }
 
     @Test
+    public void test_analyzer_with_version_52X() throws IOException, InterruptedException {
+        execute_test("5.2."+System.getProperty("es52X.version"), "es-5.2.X.zip");
+    }
+
+    @Test
     public void test_analyzer_with_version_53X() throws IOException, InterruptedException {
         execute_test("5.3."+System.getProperty("es53X.version"), "es-5.3.X.zip");
     }
