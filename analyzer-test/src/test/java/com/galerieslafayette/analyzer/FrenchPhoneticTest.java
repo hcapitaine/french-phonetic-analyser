@@ -62,6 +62,11 @@ public class FrenchPhoneticTest {
         execute_test("5.6."+System.getProperty("es56X.version"), "es-5.6.X.zip");
     }
 
+    @Test
+    public void test_analyzer_with_version_60X() throws IOException, InterruptedException {
+        execute_test("6.0."+System.getProperty("es60X.version"), "es-6.0.X.zip");
+    }
+
     private void execute_test(String esVersion, String analyzerFileName) throws IOException, InterruptedException {
         final EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
             .withElasticVersion(esVersion)
