@@ -38,7 +38,7 @@
         <es54X.version>3</es54X.version>
         <es55X.version>3</es55X.version>
         <es56X.version>3</es56X.version>
-        <es60X.version>0-rc1</es60X.version>
+        <es60X.version>0-rc2</es60X.version>
     </properties>
 
     <dependencyManagement>
