@@ -42,49 +42,58 @@ public class FrenchPhoneticTest {
                 .target(ESClient.class, "http://localhost:9222");
     }
     @Test
+    public void test_analyzer_with_version_24X() throws IOException, InterruptedException {
+        execute_test("2.4."+System.getProperty("es24X.version"), "es-2.4.X.zip", "my_type_mapping_old.json", "my_index_settings.json", 2040699);
+    }
+
+    @Test
     public void test_analyzer_with_version_51X() throws IOException, InterruptedException {
-        execute_test("5.1."+System.getProperty("es51X.version"), "es-5.1.X.zip");
+        execute_test("5.1."+System.getProperty("es51X.version"), "es-5.1.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
     public void test_analyzer_with_version_52X() throws IOException, InterruptedException {
-        execute_test("5.2."+System.getProperty("es52X.version"), "es-5.2.X.zip");
+        execute_test("5.2."+System.getProperty("es52X.version"), "es-5.2.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
     public void test_analyzer_with_version_53X() throws IOException, InterruptedException {
-        execute_test("5.3."+System.getProperty("es53X.version"), "es-5.3.X.zip");
+        execute_test("5.3."+System.getProperty("es53X.version"), "es-5.3.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
     public void test_analyzer_with_version_54X() throws IOException, InterruptedException {
-        execute_test("5.4."+System.getProperty("es54X.version"), "es-5.4.X.zip");
+        execute_test("5.4."+System.getProperty("es54X.version"), "es-5.4.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
     public void test_analyzer_with_version_55X() throws IOException, InterruptedException {
-        execute_test("5.5."+System.getProperty("es55X.version"), "es-5.5.X.zip");
+        execute_test("5.5."+System.getProperty("es55X.version"), "es-5.5.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
     public void test_analyzer_with_version_56X() throws IOException, InterruptedException {
-        execute_test("5.6."+System.getProperty("es56X.version"), "es-5.6.X.zip");
+        execute_test("5.6."+System.getProperty("es56X.version"), "es-5.6.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
     public void test_analyzer_with_version_60X() throws IOException, InterruptedException {
-        execute_test("6.0."+System.getProperty("es60X.version"), "es-6.0.X.zip");
+        execute_test("6.0."+System.getProperty("es60X.version"), "es-6.0.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
-    private void execute_test(String esVersion, String analyzerFileName) throws IOException, InterruptedException {
-        final EmbeddedElastic embeddedElastic = EmbeddedElastic.builder()
-            .withElasticVersion(esVersion)
-            .withSetting(PopularProperties.HTTP_PORT, 9222)
+    private void execute_test(String esVersion, String analyzerFileName, String mappingFileName, String indexSettingsFileName, Integer indexVersion) throws IOException, InterruptedException {
+        EmbeddedElastic.Builder builder = EmbeddedElastic.builder()
+                .withElasticVersion(esVersion)
+                .withSetting(PopularProperties.HTTP_PORT, 9222);
+        if(indexVersion != null){
+                builder.withSetting("index.version.created", indexVersion);
+        }
+        final EmbeddedElastic embeddedElastic = builder
             .withSetting(PopularProperties.CLUSTER_NAME, "my_cluster")
             .withPlugin("file://"+getSystemResource(analyzerFileName).getPath())
             .withIndex("my_index", IndexSettings.builder()
-                    .withType(INDEX_TYPE, getSystemResourceAsStream("my_type_mapping.json"))
-                    .withSettings(getSystemResourceAsStream("my_index_settings.json"))
+                    .withType(INDEX_TYPE, getSystemResourceAsStream(mappingFileName))
+                    .withSettings(getSystemResourceAsStream(indexSettingsFileName))
                     .build())
             .build()
             .start();
