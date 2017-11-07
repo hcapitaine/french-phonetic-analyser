@@ -185,6 +185,9 @@ public class Encoder {
                 return operatePhonetic(acc + "S", charAt(tail, 0), substring(tail, 1, tail.length()));
             }
 
+            if(c == 'O' && "X".equals(tail)){
+                return acc +"OX";
+            }
 
         }
 
@@ -278,6 +281,10 @@ public class Encoder {
             acc += "2";
             if (tail.charAt(0) == 'Y' && tail.length() != 1 && (c != 'E' || c == 'E' && VOWELS.contains(tail.charAt(1)))) {
                 acc += "I";
+            }
+            //X is not pronounced in words ending with AIX
+            if(c == 'A' && charAt(tail, 0) == 'I' && "X".equals(substring(tail, 1, tail.length()))){
+                return acc;
             }
             return operatePhonetic(acc, charAt(tail, 1), substring(tail, 2, tail.length()));
         }

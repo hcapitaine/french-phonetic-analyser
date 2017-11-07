@@ -708,4 +708,25 @@ public class FrenchPhoneticTest {
         String result = frenchPhonetic.encode("michael");
         Assertions.assertThat(result).isEqualTo("MIKA2L");
     }
+
+    @Test
+    public void testEncodeEndingWithOX() throws EncoderException {
+        FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
+        String result = frenchPhonetic.encode("intox");
+        Assertions.assertThat(result).isEqualTo("1TOX");
+    }
+
+    @Test
+    public void testEncodeEndingWithOSoundAndX() throws EncoderException {
+        FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
+        String result = frenchPhonetic.encode("etaux");
+        Assertions.assertThat(result).isEqualTo("2TO");
+    }
+
+    @Test
+    public void testEncodeEndingWith2SoundAndX() throws EncoderException {
+        FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
+        String result = frenchPhonetic.encode("PAIX");
+        Assertions.assertThat(result).isEqualTo("P2");
+    }
 }

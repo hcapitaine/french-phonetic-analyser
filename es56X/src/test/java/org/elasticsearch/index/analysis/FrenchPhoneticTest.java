@@ -3,6 +3,7 @@ package org.elasticsearch.index.analysis;
 import org.apache.commons.codec.EncoderException;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class FrenchPhoneticTest {
@@ -499,7 +500,6 @@ public class FrenchPhoneticTest {
         Assertions.assertThat(encode).isEqualTo("");
     }
 
-
     @Test
     public void testEndingERT() throws EncoderException {
         FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
@@ -707,5 +707,26 @@ public class FrenchPhoneticTest {
         FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
         String result = frenchPhonetic.encode("michael");
         Assertions.assertThat(result).isEqualTo("MIKA2L");
+    }
+
+    @Test
+    public void testEncodeEndingWithOX() throws EncoderException {
+        FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
+        String result = frenchPhonetic.encode("intox");
+        Assertions.assertThat(result).isEqualTo("1TOX");
+    }
+
+    @Test
+    public void testEncodeEndingWithOSoundAndX() throws EncoderException {
+        FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
+        String result = frenchPhonetic.encode("etaux");
+        Assertions.assertThat(result).isEqualTo("2TO");
+    }
+
+    @Test
+    public void testEncodeEndingWith2SoundAndX() throws EncoderException {
+        FrenchPhonetic frenchPhonetic = new FrenchPhonetic();
+        String result = frenchPhonetic.encode("PAIX");
+        Assertions.assertThat(result).isEqualTo("P2");
     }
 }
