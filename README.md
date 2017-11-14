@@ -1,15 +1,15 @@
 # French-phonetic-analyser plugin (token filter)
 
-##Que fait ce plugin / token filter?
+## Que fait ce plugin / token filter?
 
 Ce token filter permet d'encoder le texte à partir des phonèmes prononcés dans la langue française.
 
-##Pourquoi ce plugin plutôt que ceux qui existent déjà?
+## Pourquoi ce plugin plutôt que ceux qui existent déjà?
 
 Ce plugin a été créé car l'utilisation des plugins existants (soundex...)
 ramenaient plus de résultats que ce qui était recherché. cf: https://blog.ippon.fr/2016/03/02/elasticsearch-tu-tentends-quand-tu-analyses/
 
-##Comment le plugin fonctionne-t-il?
+## Comment le plugin fonctionne-t-il?
 
 Le plugin fonctionne de la même façon qu'un enfant lirait un texte ou l'écrirait sans connaître l'orthographe.
 
@@ -29,7 +29,7 @@ La transcription de certains phonèmes est codé de la façon suivante:
 A voir <a href="https://fr.wikipedia.org/wiki/Prononciation_du_fran%C3%A7ais#Prononciation_des_graph.C3.A8mes"/> Prononciation des graphèmes sur Wikipedia</a>
 
 
-##Comment obtenir la version du plugin pour la version de l'elasticsearch que j'utilise:
+## Comment obtenir la version du plugin pour la version de l'elasticsearch que j'utilise:
 
 Le plugin est décliné pour chaque version majeure et mineure d'elasticsearch.
  
@@ -37,7 +37,7 @@ Ce sont lors de ces versions que les montées de versions de lucène sont effect
 
 **ATTENTION**: Un plugin ne fonctionne que s'il a été buildé pour la version cible d'elasticsearch. La version est inscrite dans le fichier plugin-descriptor.properties
 
-###Compiler la version désirée:
+### Compiler la version désirée:
 
 
 ```shell
@@ -54,8 +54,8 @@ Le plugin se trouve ensuite dans le module maven pour la version d'elasticsearch
 
 
 
-##Contributeurs:
-Merci aux Galeries Lafayette d'avoir permis de rendre le code open-source et à ces différents contributeurs:
+## Contributeurs:
+Merci aux ***Galeries Lafayette*** d'avoir permis de rendre le code open-source et à ces différents contributeurs:
 
 * Harold Capitaine
 * Yves Mathieu Rideau Baudin
