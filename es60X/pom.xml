@@ -13,7 +13,7 @@
     <description>French phonetic analyzer that encodes string as pronounced</description>
 
     <properties>
-        <lucene.version>7.0.0</lucene.version>
+        <lucene.version>7.0.1</lucene.version>
     </properties>
 
     <dependencies>
