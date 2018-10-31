@@ -1,8 +1,10 @@
 package org.elasticsearch.index.analysis;
 
+import com.aper.analysis.FrenchPhoneticAnalyzer;
 import org.apache.commons.codec.Encoder;
 import org.apache.commons.codec.language.bm.NameType;
 import org.apache.commons.codec.language.bm.RuleType;
+import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.phonetic.PhoneticFilter;
 import org.elasticsearch.common.inject.Inject;
@@ -18,7 +20,7 @@ public class FrenchPhoneticTokenFilterFactory extends AbstractTokenFilterFactory
     private final RuleType ruletype;
     private final int maxcodelength;
     private final boolean replace;
-    private final Encoder encoder;
+    private TokenFilter analyzer;
 
 
     @Inject
@@ -31,18 +33,13 @@ public class FrenchPhoneticTokenFilterFactory extends AbstractTokenFilterFactory
         this.replace = settings.getAsBoolean("replace", true);
         // weird, encoder is null at last step in SimplePhoneticAnalysisTests, so we set it to metaphone as default
         String encodername = settings.get("encoder", "french_phonetic");
-        if("french_phonetic".equalsIgnoreCase(encodername)){
-            this.encoder = new FrenchPhonetic();
-        }else {
+        if(!"french_phonetic".equalsIgnoreCase(encodername)){
             throw new IllegalArgumentException("unknown encoder [" + encodername + "] for phonetic token filter");
         }
     }
 
     @Override
     public TokenStream create(TokenStream tokenStream) {
-        if(encoder!=null){
-            return new PhoneticFilter(tokenStream, encoder, !replace);
-        }
-        throw new IllegalArgumentException("encoder error");
+        return new FrenchPhoneticAnalyzer(tokenStream);
     }
 }
