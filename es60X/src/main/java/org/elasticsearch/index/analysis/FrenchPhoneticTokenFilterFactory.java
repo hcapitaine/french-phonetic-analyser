@@ -1,12 +1,10 @@
 package org.elasticsearch.index.analysis;
 
 import com.aper.analysis.FrenchPhoneticAnalyzer;
-import org.apache.commons.codec.Encoder;
 import org.apache.commons.codec.language.bm.NameType;
 import org.apache.commons.codec.language.bm.RuleType;
 import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.phonetic.PhoneticFilter;
 import org.elasticsearch.common.inject.Inject;
 import org.elasticsearch.common.inject.assistedinject.Assisted;
 import org.elasticsearch.common.settings.Settings;

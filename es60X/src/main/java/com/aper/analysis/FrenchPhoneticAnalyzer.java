@@ -41,7 +41,7 @@ public class FrenchPhoneticAnalyzer extends TokenFilter {
     }
 
     @Override
-    public boolean incrementToken() throws IOException {
+    public final boolean incrementToken() throws IOException {
         if (state == null) {
             currentIndex = 0;
             stateTokens.clear();
@@ -72,34 +72,37 @@ public class FrenchPhoneticAnalyzer extends TokenFilter {
         
         return false;
     }
+
+    @Override
+    public void end() throws IOException {
+        super.end();
+        state = null;
+        currentIndex = 0;
+        stateTokens.clear();
+    }
     
-    protected List<String> encode(String input){
+    public List<String> encode(String input){
         if (input == null || input.length() == 0) {
             return Arrays.asList(input);
         }
         int len = input.length();
-        String STR = input.toUpperCase(Locale.FRENCH);
+        String upperStr = input.toUpperCase(Locale.FRENCH);
 
         char[] chars = new char[len];
         int count = 0;
         for (int i = 0; i < len; i++) {
-            if (Character.isLetter(STR.charAt(i))) {
-                if (SOUND_2_ACCENTUATED_CHARS.contains(STR.charAt(i))) {
+            if (Character.isLetter(upperStr.charAt(i))) {
+                if (SOUND_2_ACCENTUATED_CHARS.contains(upperStr.charAt(i))) {
                     chars[count++] = '2';
                 } else {
-                    chars[count++] = STR.charAt(i);
+                    chars[count++] = upperStr.charAt(i);
                 }
             }
         }
         char[] res = new char[count];
         int finalSize = ASCIIFoldingFilter.foldToASCII(chars, 0, res, 0, count);
         String cleanedString = new String(chars, 0, finalSize);
-        return Arrays.asList(input, Encoder.operatePhonetic("", Encoder.charAt(cleanedString, 0), Encoder.substring(cleanedString, 1, cleanedString.length())));
+        return new ArrayList<>(Encoder.operatePhonetic("", Encoder.charAt(cleanedString, 0), Encoder.substring(cleanedString, 1, cleanedString.length())));
     }
-
-    @Override
-    public void end() throws IOException {
-        super.end();
-        state = null;
-    }
+    
 }

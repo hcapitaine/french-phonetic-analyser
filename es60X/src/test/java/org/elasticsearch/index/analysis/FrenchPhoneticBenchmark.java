@@ -1,5 +1,6 @@
 package org.elasticsearch.index.analysis;
 
+import com.aper.analysis.FrenchPhoneticAnalyzer;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.language.RefinedSoundex;
 import org.openjdk.jmh.annotations.*;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -17,12 +19,12 @@ public class FrenchPhoneticBenchmark {
     @State(Scope.Benchmark)
     public static class FrenchPhoneticFactory
     {
-        FrenchPhonetic instance;
+        FrenchPhoneticAnalyzer instance;
 
         @Setup(Level.Trial)
         public void initialize()
         {
-            instance = new FrenchPhonetic();
+            instance = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         }
 
         @TearDown(Level.Trial)
@@ -95,7 +97,7 @@ public class FrenchPhoneticBenchmark {
     @Measurement(iterations = 10, time= 1, timeUnit = TimeUnit.SECONDS)
     @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
     @Threads(4)
-    public String encodeStringFrenchPhonetic(FrenchPhoneticFactory frenchPhonetic) throws EncoderException {
+    public List<String> encodeStringFrenchPhonetic(FrenchPhoneticFactory frenchPhonetic) throws EncoderException {
         return frenchPhonetic.instance.encode(data);
     }
 
