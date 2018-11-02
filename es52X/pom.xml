@@ -36,7 +36,7 @@
 
     </dependencies>
     <build>
-        <finalName>french-phonetic-analyzer.${artifactId}.${pom.version}</finalName>
+        <finalName>french-phonetic-analyzer.${project.artifactId}.${project.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -64,7 +64,7 @@
                     <descriptors>
                         <descriptor>src/assembly/plugin.xml</descriptor>
                     </descriptors>
-                    <finalName>french-phonetic-analyzer.${artifactId}.${pom.version}</finalName>
+                    <finalName>french-phonetic-analyzer.${project.artifactId}.${project.version}</finalName>
                 </configuration>
                 <executions>
                     <execution>
