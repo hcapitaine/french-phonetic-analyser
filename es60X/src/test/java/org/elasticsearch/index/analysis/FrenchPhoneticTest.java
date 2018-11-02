@@ -18,84 +18,84 @@ public class FrenchPhoneticTest {
     public void testEncodeWithMutedContainsH() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("thermometre");
-        Assertions.assertThat(encode).contains("T2RMOM2TR");
+        Assertions.assertThat(encode).containsOnly("T2RMOM2TR");
     }
 
     @Test
     public void testEncodeWithDoubleF() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("bouzeliffa");
-        Assertions.assertThat(encode).contains("BOUZ2LIFA");
+        Assertions.assertThat(encode).containsOnly("BOUZ2LIFA");
     }
 
     @Test
     public void testEncodeNumber() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("5");
-        Assertions.assertThat(encode).contains("");
+        Assertions.assertThat(encode).containsOnly("");
     }
 
     @Test
     public void testEncodeWithFinalX() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("CEDEX");
-        Assertions.assertThat(encode).contains("52D2X");
+        Assertions.assertThat(encode).containsOnly("52D2X");
     }
 
     @Test
     public void testEncodeWithStartingOEU() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("oeuvre");
-        Assertions.assertThat(encode).contains("8VR");
+        Assertions.assertThat(encode).containsOnly("8VR");
     }
 
     @Test
     public void testEncodeWithContainsOEU() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("coeur");
-        Assertions.assertThat(encode).contains("K8R");
+        Assertions.assertThat(encode).containsOnly("K8R");
     }
 
     @Test
     public void testEncodeWithEndingOEU() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("voeu");
-        Assertions.assertThat(encode).contains("V8");
+        Assertions.assertThat(encode).containsOnly("V8");
     }
 
     @Test
     public void testEncodeWithContainsEU() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("veuve");
-        Assertions.assertThat(encode).contains("V8V");
+        Assertions.assertThat(encode).containsOnly("V8V");
     }
 
     @Test
     public void testEncodeWithEndingsEU() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("matthieu");
-        Assertions.assertThat(encode).contains("MATI8");
+        Assertions.assertThat(encode).containsOnly("MATI8");
     }
 
     @Test
     public void testEncodeWithStartingEU() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("europe");
-        Assertions.assertThat(encode).contains("8ROP");
+        Assertions.assertThat(encode).containsOnly("8ROP");
     }
 
     @Test
     public void testEncodeWithMutedContainsHNotPreceded() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("hache");
-        Assertions.assertThat(encode).contains("ACH");
+        Assertions.assertThat(encode).containsOnly("ACH");
     }
 
     @Test
     public void testEncodeWithMutedContainsHPrecedeByVowels() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("bahut");
-        Assertions.assertThat(encode).contains("BAU");
+        Assertions.assertThat(encode).containsOnly("BAU");
     }
 
 
@@ -104,126 +104,126 @@ public class FrenchPhoneticTest {
     public void testEncodeWithMutedStartingH() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("haricots");
-        Assertions.assertThat(encode).contains("ARIKO");
+        Assertions.assertThat(encode).containsOnly("ARIKO", "ARIKOTS");
     }
 
     @Test
     public void testEncodeWithMutedEndingX() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("hiboux");
-        Assertions.assertThat(encode).contains("IBOU");
+        Assertions.assertThat(encode).containsOnly("IBOU", "IBOUX");
     }
 
     @Test
     public void testEncodeWithMutedEndingTS() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("couts");
-        Assertions.assertThat(encode).contains("KOU");
+        Assertions.assertThat(encode).containsOnly("KOU", "KOUTS");
     }
 
     @Test
     public void testEncodeWithTrailingT() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("rat");
-        Assertions.assertThat(encode).contains("RA");
+        Assertions.assertThat(encode).containsOnly("RA");
     }
 
     @Test
     public void testEncodeWithTrailingY() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("dauby");
-        Assertions.assertThat(encode).contains("DOBI");
+        Assertions.assertThat(encode).containsOnly("DOBI");
     }
 
     @Test
     public void testEncodeWithTwoTrailingMutedConsonnant() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("ouest");
-        Assertions.assertThat(encode).contains("OU25");
+        Assertions.assertThat(encode).containsOnly("OU25");
     }
 
     @Test
     public void testEncodeWithTrailingD() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("suspend");
-        Assertions.assertThat(encode).contains("5U5P3");
+        Assertions.assertThat(encode).containsOnly("5U5P3", "5U5P3D");
     }
 
     @Test
     public void testEncodeWithNotMutedH() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("chat");
-        Assertions.assertThat(encode).contains("CHA");
+        Assertions.assertThat(encode).containsOnly("CHA");
     }
 
     @Test
     public void testEncodeWithDoubleCH() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("cherche");
-        Assertions.assertThat(encode).contains("CH2RCH");
+        Assertions.assertThat(encode).containsOnly("CH2RCH");
     }
 
     @Test
     public void testEncodeWithCAsS() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("acceptable");
-        Assertions.assertThat(encode).contains("AK52PTABL");
+        Assertions.assertThat(encode).containsOnly("AK52PTABL");
     }
 
     @Test
     public void testEncodeWithCAsK() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("consommable");
-        Assertions.assertThat(encode).contains("K45OMABL");
+        Assertions.assertThat(encode).containsOnly("K45OMABL");
     }
 
     @Test
     public void testEncodeWithDoubleConsonant() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("boulette");
-        Assertions.assertThat(encode).contains("BOUL2T");
+        Assertions.assertThat(encode).containsOnly("BOUL2T");
     }
 
     @Test
     public void testEncodeWithQUAsK() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("graphique");
-        Assertions.assertThat(encode).contains("GRAFIK");
+        Assertions.assertThat(encode).containsOnly("GRAFIK");
     }
 
     @Test
     public void testEncodeWithTrailingR() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("merard");
-        Assertions.assertThat(encode).contains("M2RAR");
+        Assertions.assertThat(encode).containsOnly("M2RAR", "M2RARD");
     }
 
     @Test
     public void testEncodeWithQUAsKNotEnds() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("graphiques");
-        Assertions.assertThat(encode).contains("GRAFIK");
+        Assertions.assertThat(encode).containsOnly("GRAFIK", "GRAFIK2S");
     }
 
     @Test
     public void testEncodeWithQUAsKEnds() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("graphiqu");
-        Assertions.assertThat(encode).contains("GRAFIK");
+        Assertions.assertThat(encode).containsOnly("GRAFIK");
     }
 
     @Test
     public void testEncodeWithPHAlmostEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("graphe");
-        Assertions.assertThat(encode).contains("GRAF");
+        Assertions.assertThat(encode).containsOnly("GRAF");
     }
 
     @Test
     public void testEncodeWithPHEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("graph");
-        Assertions.assertThat(encode).contains("GRAF");
+        Assertions.assertThat(encode).containsOnly("GRAF");
     }
 
 
@@ -231,126 +231,126 @@ public class FrenchPhoneticTest {
     public void testEncodeWithAIEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("balai");
-        Assertions.assertThat(encode).contains("BAL2");
+        Assertions.assertThat(encode).containsOnly("BAL2");
     }
 
     @Test
     public void testEncodeWithCEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("FRANC");
-        Assertions.assertThat(encode).contains("FR3");
+        Assertions.assertThat(encode).containsOnly("FR3", "FR3K");
     }
 
     @Test
     public void testEncodeWithCKEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("FRANCK");
-        Assertions.assertThat(encode).contains("FR3K");
+        Assertions.assertThat(encode).containsOnly("FR3K");
     }
 
     @Test
     public void testEncodeWithKEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("FRANK");
-        Assertions.assertThat(encode).contains("FR3K");
+        Assertions.assertThat(encode).containsOnly("FR3K");
     }
 
     @Test
     public void testEncodeWithSEasZEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("BRAISE");
-        Assertions.assertThat(encode).contains("BR2Z");
+        Assertions.assertThat(encode).containsOnly("BR2Z");
     }
 
     @Test
     public void testEncodeWithAYEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("tramway");
-        Assertions.assertThat(encode).contains("TR3V2");
+        Assertions.assertThat(encode).containsOnly("TR3V2");
     }
 
     @Test
     public void testEncodeWithANEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("faisan");
-        Assertions.assertThat(encode).contains("F2Z3");
+        Assertions.assertThat(encode).containsOnly("F2Z3");
     }
 
     @Test
     public void testEncodeWithGEEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("tige");
-        Assertions.assertThat(encode).contains("TIJ");
+        Assertions.assertThat(encode).containsOnly("TIJ");
     }
 
     @Test
     public void testEncodeWithAIMEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("daim");
-        Assertions.assertThat(encode).contains("D1");
+        Assertions.assertThat(encode).containsOnly("D1");
     }
 
     @Test
     public void testEncodeWithAINEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("bain");
-        Assertions.assertThat(encode).contains("B1");
+        Assertions.assertThat(encode).containsOnly("B1");
     }
 
     @Test
     public void testEncodeWithEINEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("plein");
-        Assertions.assertThat(encode).contains("PL1");
+        Assertions.assertThat(encode).containsOnly("PL1");
     }
 
     @Test
     public void testEncodeWithEINContains() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("ceinture");
-        Assertions.assertThat(encode).contains("51TUR");
+        Assertions.assertThat(encode).containsOnly("51TUR");
     }
 
     @Test
     public void testEncodeWithEINContainsFollowByVowels() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("seime");
-        Assertions.assertThat(encode).contains("52M");
+        Assertions.assertThat(encode).containsOnly("52M");
     }
 
     @Test
     public void testEncodeWithAINContains() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("maintenant");
-        Assertions.assertThat(encode).contains("M1TEN3");
+        Assertions.assertThat(encode).containsOnly("M1TEN3");
     }
 
     @Test
     public void testEncodeWithAINAlmostEnding() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("bains");
-        Assertions.assertThat(encode).contains("B1");
+        Assertions.assertThat(encode).containsOnly("B1", "B1S");
     }
 
     @Test
     public void testEncodeWithEY() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("seyante");
-        Assertions.assertThat(encode).contains("52I3T");
+        Assertions.assertThat(encode).containsOnly("52I3T");
     }
 
     @Test
     public void testEncodeWithTrailingEY() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("volley");
-        Assertions.assertThat(encode).contains("VOL2");
+        Assertions.assertThat(encode).containsOnly("VOL2");
     }
 
     @Test
     public void testEncodeWithEndingEY() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("chardonay");
-        Assertions.assertThat(encode).contains("CHARDON2");
+        Assertions.assertThat(encode).containsOnly("CHARDON2");
     }
 
     @Test
@@ -406,84 +406,84 @@ public class FrenchPhoneticTest {
     public void testEncodeWithON() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("pont");
-        Assertions.assertThat(encode).contains("P4");
+        Assertions.assertThat(encode).containsOnly("P4");
     }
 
     @Test
     public void testEncodeWithOM() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("pompe");
-        Assertions.assertThat(encode).contains("P4P");
+        Assertions.assertThat(encode).containsOnly("P4P");
     }
 
     @Test
     public void testEncodeWithYM() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("cymbale");
-        Assertions.assertThat(encode).contains("51BAL");
+        Assertions.assertThat(encode).containsOnly("51BAL");
     }
 
     @Test
     public void testEncodeWithYN() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("pharynx");
-        Assertions.assertThat(encode).contains("FAR1X");
+        Assertions.assertThat(encode).containsOnly("FAR1X");
     }
 
     @Test
     public void testEncodeWithAN() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("pendant");
-        Assertions.assertThat(encode).contains("P3D3");
+        Assertions.assertThat(encode).containsOnly("P3D3");
     }
 
     @Test
     public void testEncodeWithEndingEAU() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("eau");
-        Assertions.assertThat(encode).contains("O");
+        Assertions.assertThat(encode).containsOnly("O");
     }
 
     @Test
     public void testEncodeWithEAUContains() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("tableautage");
-        Assertions.assertThat(encode).contains("TABLOTAJ");
+        Assertions.assertThat(encode).containsOnly("TABLOTAJ");
     }
 
     @Test
     public void testEncodeWithAUContains() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("vautrer");
-        Assertions.assertThat(encode).contains("VOTR2");
+        Assertions.assertThat(encode).containsOnly("VOTR2");
     }
 
     @Test
     public void testEncodeWithANFollowByVowels() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("anhile");
-        Assertions.assertThat(encode).contains("ANIL");
+        Assertions.assertThat(encode).containsOnly("ANIL");
     }
 
     @Test
     public void testEncodeWithAMFollowByVowels() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("amerique");
-        Assertions.assertThat(encode).contains("AM2RIK");
+        Assertions.assertThat(encode).containsOnly("AM2RIK");
     }
 
     @Test
     public void testEncodeWithVowelTION() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("ebulition");
-        Assertions.assertThat(encode).contains("2BULISI4");
+        Assertions.assertThat(encode).containsOnly("2BULISI4");
     }
 
     @Test
     public void testEncodeWithConsonantTION() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("bastion");
-        Assertions.assertThat(encode).contains("BA5TI4");
+        Assertions.assertThat(encode).containsOnly("BA5TI4");
     }
 
 
@@ -491,243 +491,250 @@ public class FrenchPhoneticTest {
     public void testEncodeWithEN() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("pendant");
-        Assertions.assertThat(encode).contains("P3D3");
+        Assertions.assertThat(encode).containsOnly("P3D3");
     }
 
     @Test
     public void testEncodeWithNullString() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("");
-        Assertions.assertThat(encode).contains("");
+        Assertions.assertThat(encode).containsOnly("");
     }
 
     @Test
     public void testEndingERT() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("AUBERT");
-        Assertions.assertThat(encode).contains("OB2R");
+        Assertions.assertThat(encode).containsOnly("OB2R");
     }
 
     @Test
     public void testEndingER() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("OBER");
-        Assertions.assertThat(encode).contains("OB2");
+        Assertions.assertThat(encode).containsOnly("OB2");
     }
 
     @Test
     public void testBeginningER() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("HERTZIEN");
-        Assertions.assertThat(encode).contains("2RTZI3");
+        Assertions.assertThat(encode).containsOnly("2RTZI3");
     }
 
     @Test
     public void testEndindAUD() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("BADAUDS");
-        Assertions.assertThat(encode).contains("BADO");
+        Assertions.assertThat(encode).containsOnly("BADO", "BADOD", "BADODS");
     }
 
     @Test
     public void testEndingCCO() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("BACCO");
-        Assertions.assertThat(encode).contains("BAKO");
+        Assertions.assertThat(encode).containsOnly("BAKO");
     }
 
     @Test
     public void testEndingCO() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("BACO");
-        Assertions.assertThat(encode).contains("BAKO");
+        Assertions.assertThat(encode).containsOnly("BAKO");
     }
     @Test
     public void testEndingCOT() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("BACOT");
-        Assertions.assertThat(encode).contains("BAKO");
+        Assertions.assertThat(encode).containsOnly("BAKO");
     }
 
     @Test
     public void testMauriceMatch() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("MAURISSE");
-        Assertions.assertThat(encode).contains("MORI5");
+        Assertions.assertThat(encode).containsOnly("MORI5");
     }
 
     @Test
     public void testMutedEndingZ() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("ALLEZ");
-        Assertions.assertThat(encode).contains("AL2");
+        Assertions.assertThat(encode).containsOnly("AL2");
     }
 
     @Test
     public void testEndingZ() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("ALAISE");
-        Assertions.assertThat(encode).contains("AL2Z");
+        Assertions.assertThat(encode).containsOnly("AL2Z");
     }
 
     @Test
     public void testEnding2() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("André");
-        Assertions.assertThat(encode).contains("3DR2");
+        Assertions.assertThat(encode).containsOnly("3DR2");
     }
 
     @Test
     public void testEndingE() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("Andrey");
-        Assertions.assertThat(encode).contains("3DR2");
+        Assertions.assertThat(encode).containsOnly("3DR2");
     }
 
     @Test
     public void testEas2() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("Audré");
-        Assertions.assertThat(encode).contains("ODR2");
+        Assertions.assertThat(encode).containsOnly("ODR2");
     }
 
     @Test
     public void testEYas2() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("Audrey");
-        Assertions.assertThat(encode).contains("ODR2");
+        Assertions.assertThat(encode).containsOnly("ODR2");
     }
 
     @Test
     public void testEANEqualsEN() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("JEAN");
-        Assertions.assertThat(encode).contains("J3");
+        Assertions.assertThat(encode).containsOnly("J3");
     }
 
     @Test
     public void testEANEquals2AN() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("Géant");
-        Assertions.assertThat(encode).contains("J23");
+        Assertions.assertThat(encode).containsOnly("J23");
     }
 
     @Test
     public void testEANEqualsANE() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("JEANNE");
-        Assertions.assertThat(encode).contains("JAN");
+        Assertions.assertThat(encode).containsOnly("JAN");
     }
 
     @Test
     public void testLongerEANEqualsANE() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("JEANNETON");
-        Assertions.assertThat(encode).contains("JAN2T4");
+        Assertions.assertThat(encode).containsOnly("JAN2T4");
     }
 
     @Test
     public void testJeannette() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("JEANNETTE");
-        Assertions.assertThat(encode).contains("JAN2T");
+        Assertions.assertThat(encode).containsOnly("JAN2T");
     }
 
     @Test
     public void testOMutedS() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("GROSJEAN");
-        Assertions.assertThat(encode).contains("GROJ3");
+        Assertions.assertThat(encode).containsOnly("GROJ3");
     }
 
     @Test
     public void testAMutedS() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("BASMAISON");
-        Assertions.assertThat(encode).contains("BAM2Z4");
+        Assertions.assertThat(encode).containsOnly("BAM2Z4");
     }
 
     @Test
     public void testFinalSS() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("TOREGROSS");
-        Assertions.assertThat(encode).contains("TOR2GRO5");
+        Assertions.assertThat(encode).containsOnly("TOR2GRO5");
     }
 
     @Test
     public void testWithEndingRSound() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("PIERE");
-        Assertions.assertThat(encode).contains("PI2R");
+        Assertions.assertThat(encode).containsOnly("PI2R");
     }
 
     @Test
     public void testWithSpaces() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("DE MARI");
-        Assertions.assertThat(encode).contains("DEMARI");
+        Assertions.assertThat(encode).containsOnly("DEMARI");
     }
 
     @Test
     public void testWithEnding1X() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("LARYNX");
-        Assertions.assertThat(encode).contains("LAR1X");
+        Assertions.assertThat(encode).containsOnly("LAR1X");
     }
 
     @Test
     public void testWithEndingEUX() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("HEUREUX");
-        Assertions.assertThat(encode).contains("8R8");
+        Assertions.assertThat(encode).containsOnly("8R8X", "8R8");
     }
 
     @Test
     public void testWithEndingRIX() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("PERDRIX");
-        Assertions.assertThat(encode).contains("P2RDRI");
+        Assertions.assertThat(encode).containsOnly("P2RDRI", "P2RDRIX");
     }
 
     @Test
     public void testWithEndingOIX() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("CROIX");
-        Assertions.assertThat(encode).contains("KROI");
+        Assertions.assertThat(encode).containsOnly("KROIX", "KROI");
     }
 
     @Test
     public void testWithSCasS() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("ASCENSION");
-        Assertions.assertThat(encode).contains("A535I4");
+        Assertions.assertThat(encode).containsOnly("ASK35I4", "A535I4");
+    }
+
+    @Test
+    public void testWithSCasSK() {
+        FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
+        List<String> encode = frenchPhonetic.encode("ESCALADE");
+        Assertions.assertThat(encode).containsOnly("25KALAD");
     }
 
     @Test
     public void testEncodeCHFollowedDoubleVowels() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("michael");
-        Assertions.assertThat(encode).contains("MIKA2L");
+        Assertions.assertThat(encode).containsOnly("MIKA2L");
     }
 
     @Test
     public void testEncodeEndingWithOX() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("intox");
-        Assertions.assertThat(encode).contains("1TOX");
+        Assertions.assertThat(encode).containsOnly("1TOX");
     }
 
     @Test
     public void testEncodeEndingWithOSoundAndX() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("etaux");
-        Assertions.assertThat(encode).contains("2TO");
+        Assertions.assertThat(encode).containsOnly("2TO", "2TOX");
     }
 
     @Test
     public void testEncodeEndingWith2SoundAndX() {
         FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
         List<String> encode = frenchPhonetic.encode("PAIX");
-        Assertions.assertThat(encode).contains("P2");
+        Assertions.assertThat(encode).containsOnly("P2");
     }
 }

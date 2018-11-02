@@ -16,6 +16,8 @@ public class Encoder {
     private static final List<Character> VOWELS = Arrays.asList('A', 'E', '2', 'I', 'O', 'U', 'Y');
 
     private static final List<Character> MUTED_ENDED_CONSONANT = Arrays.asList('C', 'D', 'H', 'G', 'P', 'S', 'T', 'X', 'Z');
+    
+    private static final List<Character> NOT_ALWAYS_MUTED_ENDED_CONSONANT = Arrays.asList('C', 'D', 'G', 'P', 'S', 'X', 'Z');
 
     private static final List<Character> MUTED_S_PRECEDING_VOWEL = Arrays.asList('A', 'O');
 
@@ -46,7 +48,14 @@ public class Encoder {
                             charAt(acc, acc.length() - 1),
                             ""
                     );
-                    encodedTokens.add(acc+c);
+                    if(NOT_ALWAYS_MUTED_ENDED_CONSONANT.contains(c)){
+                        if(c == 'C'){
+                            encodedTokens.add(acc+'K');
+                        } else {
+                            encodedTokens.add(acc+c);    
+                        }
+                        
+                    }
                     return encodedTokens;
                 } else {
 
