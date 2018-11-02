@@ -4,6 +4,8 @@ import com.galerieslafayette.index.analysis.FrenchPhoneticAnalyzer;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.language.RefinedSoundex;
 import org.apache.commons.codec.language.bm.BeiderMorseEncoder;
+import org.apache.commons.codec.language.bm.NameType;
+import org.apache.commons.codec.language.bm.RuleType;
 import org.openjdk.jmh.annotations.*;
 
 import java.io.IOException;
@@ -62,6 +64,9 @@ public class FrenchPhoneticBenchmark {
         public void initialize()
         {
             instance = new BeiderMorseEncoder();
+            instance.setNameType(NameType.GENERIC);
+            instance.setConcat(true);
+            instance.setRuleType(RuleType.APPROX);
         }
 
         @TearDown(Level.Trial)
