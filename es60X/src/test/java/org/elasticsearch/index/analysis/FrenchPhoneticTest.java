@@ -1,6 +1,6 @@
 package org.elasticsearch.index.analysis;
 
-import com.aper.analysis.FrenchPhoneticAnalyzer;
+import com.galerieslafayette.index.analysis.FrenchPhoneticAnalyzer;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;

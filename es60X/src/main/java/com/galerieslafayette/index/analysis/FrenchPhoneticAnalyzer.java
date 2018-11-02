@@ -1,4 +1,4 @@
-package com.aper.analysis;
+package com.galerieslafayette.index.analysis;
 
 import com.galerieslafayette.analyzer.Encoder;
 import org.apache.lucene.analysis.TokenFilter;

@@ -1,6 +1,6 @@
-package org.elasticsearch.plugin.analysis;
+package com.galerieslafayette.plugin.analysis;
 
-import org.elasticsearch.index.analysis.FrenchPhoneticTokenFilterFactory;
+import com.galerieslafayette.index.analysis.FrenchPhoneticTokenFilterFactory;
 import org.elasticsearch.index.analysis.TokenFilterFactory;
 import org.elasticsearch.plugins.AnalysisPlugin;
 import org.elasticsearch.plugins.Plugin;

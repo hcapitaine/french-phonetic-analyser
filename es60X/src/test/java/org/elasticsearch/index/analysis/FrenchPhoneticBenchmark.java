@@ -1,6 +1,6 @@
 package org.elasticsearch.index.analysis;
 
-import com.aper.analysis.FrenchPhoneticAnalyzer;
+import com.galerieslafayette.index.analysis.FrenchPhoneticAnalyzer;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.language.RefinedSoundex;
 import org.openjdk.jmh.annotations.*;
