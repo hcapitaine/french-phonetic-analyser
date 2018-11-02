@@ -3,6 +3,7 @@ package org.elasticsearch.index.analysis;
 import com.galerieslafayette.index.analysis.FrenchPhoneticAnalyzer;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.language.RefinedSoundex;
+import org.apache.commons.codec.language.bm.BeiderMorseEncoder;
 import org.openjdk.jmh.annotations.*;
 
 import java.io.IOException;
@@ -43,6 +44,24 @@ public class FrenchPhoneticBenchmark {
         public void initialize()
         {
             instance = new RefinedSoundex();
+        }
+
+        @TearDown(Level.Trial)
+        public void shutdown()
+        {
+            // Nothing to do
+        }
+    }
+
+    @State(Scope.Benchmark)
+    public static class BeiderMorseFactory
+    {
+        BeiderMorseEncoder instance;
+
+        @Setup(Level.Trial)
+        public void initialize()
+        {
+            instance = new BeiderMorseEncoder();
         }
 
         @TearDown(Level.Trial)
@@ -110,5 +129,16 @@ public class FrenchPhoneticBenchmark {
     @Threads(4)
     public String encodeStringRefinedSoundex(RefinedSoundexFactory refinedSoundex) throws EncoderException {
         return refinedSoundex.instance.encode(data);
+    }
+
+    @Benchmark
+    @BenchmarkMode({Mode.Throughput/* Mode.AverageTime/*, Mode.SampleTime*/})
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    @Fork(8)
+    @Measurement(iterations = 10, time= 1, timeUnit = TimeUnit.SECONDS)
+    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+    @Threads(4)
+    public String encodeStringBeiderMorse(BeiderMorseFactory beiderMorse) throws EncoderException {
+        return beiderMorse.instance.encode(data);
     }
 }
