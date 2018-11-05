@@ -41,7 +41,7 @@ public class BenchmarkIT {
                 .filter(runResult -> "encodeStringFrenchPhonetic".equals(runResult.getPrimaryResult().getLabel()))
                 .forEach(
                     runResult ->
-                        Assertions.assertThat(runResult.getPrimaryResult().getStatistics().getPercentile(0.95)).isGreaterThan(6000)
+                        Assertions.assertThat(runResult.getPrimaryResult().getScore()).isGreaterThan(6000)
                 );
     }
 }
