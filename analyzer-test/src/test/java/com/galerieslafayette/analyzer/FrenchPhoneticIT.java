@@ -14,6 +14,7 @@ import org.apache.commons.io.IOUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.Container;
@@ -54,31 +55,37 @@ public class FrenchPhoneticIT {
     }
     
     @Test
+    @Ignore("Plugin works but test ignored because of this bug: https://github.com/elastic/elasticsearch/pull/23493")
     public void test_analyzer_with_version_51X() throws IOException, InterruptedException, URISyntaxException {
         execute_test_from_downloaded_es("5.1."+System.getProperty("es51X.version"), "es-5.1.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
+    @Ignore("Plugin works but test ignored because of this bug: https://github.com/elastic/elasticsearch/pull/23493")
     public void test_analyzer_with_version_52X() throws IOException, InterruptedException, URISyntaxException {
         execute_test_from_downloaded_es("5.2."+System.getProperty("es52X.version"), "es-5.2.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
+    @Ignore("Plugin works but test ignored because of this bug: https://github.com/elastic/elasticsearch/pull/23493")
     public void test_analyzer_with_version_53X() throws IOException, InterruptedException, URISyntaxException {
         execute_test_from_downloaded_es("5.3."+System.getProperty("es53X.version"), "es-5.3.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
+    @Ignore("Plugin works but test ignored because of this bug: https://github.com/elastic/elasticsearch/pull/23493")
     public void test_analyzer_with_version_54X() throws IOException, InterruptedException, URISyntaxException {
         execute_test_from_downloaded_es("5.4."+System.getProperty("es54X.version"), "es-5.4.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
+    @Ignore("Plugin works but test ignored because of this bug: https://github.com/elastic/elasticsearch/pull/23493")
     public void test_analyzer_with_version_55X() throws IOException, InterruptedException, URISyntaxException {
         execute_test_from_downloaded_es("5.5."+System.getProperty("es55X.version"), "es-5.5.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @Test
+    @Ignore("Plugin works but test ignored because of this bug: https://github.com/elastic/elasticsearch/pull/23493")
     public void test_analyzer_with_version_56X() throws IOException, InterruptedException, URISyntaxException {
         execute_test_from_downloaded_es("5.6."+System.getProperty("es56X.version"), "es-5.6.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
@@ -96,6 +103,16 @@ public class FrenchPhoneticIT {
     @Test
     public void test_analyzer_with_version_62X() throws IOException, InterruptedException, URISyntaxException {
         execute_test("6.2."+System.getProperty("es62X.version"), "es-6.2.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
+    }
+
+    @Test
+    public void test_analyzer_with_version_63X() throws IOException, InterruptedException, URISyntaxException {
+        execute_test("6.3."+System.getProperty("es63X.version"), "es-6.3.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
+    }
+
+    @Test
+    public void test_analyzer_with_version_64X() throws IOException, InterruptedException, URISyntaxException {
+        execute_test("6.4."+System.getProperty("es64.version"), "es-6.4.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @After
