@@ -7,6 +7,7 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 
+import java.io.File;
 import java.util.Map;
 
 @Headers({"Content-Type: application/json", "Accept: application/json"})
@@ -21,4 +22,10 @@ public interface ESClient {
 
     @RequestLine("DELETE /my_index/my_type/*")
     void deleteAll();
+
+    @RequestLine("PUT /my_index")
+    void createIndex(String body);
+
+    @RequestLine("PUT /my_index/_mapping/my_type")
+    void applyMapping(String settings);
 }
