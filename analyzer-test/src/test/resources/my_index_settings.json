@@ -52,7 +52,6 @@
         ]
       },
       "french-phonetic": {
-        "encoder": "french_phonetic",
         "type": "french_phonetic"
       },
       "word_delimiter_helper": {

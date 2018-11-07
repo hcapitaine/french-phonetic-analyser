@@ -2,8 +2,8 @@ package com.galerieslafayette.analyzer;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 //1 for in sound
 //2 for é sound
@@ -16,6 +16,8 @@ public class Encoder {
     private static final List<Character> VOWELS = Arrays.asList('A', 'E', '2', 'I', 'O', 'U', 'Y');
 
     private static final List<Character> MUTED_ENDED_CONSONANT = Arrays.asList('C', 'D', 'H', 'G', 'P', 'S', 'T', 'X', 'Z');
+    
+    private static final List<Character> NOT_ALWAYS_MUTED_ENDED_CONSONANT = Arrays.asList('C', 'D', 'G', 'P', 'S', 'X', 'Z');
 
     private static final List<Character> MUTED_S_PRECEDING_VOWEL = Arrays.asList('A', 'O');
 
@@ -25,11 +27,15 @@ public class Encoder {
 
     public static final List<Character> SOUND_2_ACCENTUATED_CHARS = Arrays.asList('É', 'È', 'Ê', 'Ë');
 
+    
+    private static Set<String> getSet(String value){
+        return new HashSet<>(Arrays.asList(value));
+    }
 
-    public static String operatePhonetic(String acc, Character c, String tail) {
+    public static Set<String> operatePhonetic(String acc, Character c, String tail) {
 
         if (c == null) {
-            return acc;
+            return getSet(acc);
         }
 
         if (tail == null || tail.isEmpty()) {
@@ -37,11 +43,20 @@ public class Encoder {
             //Trailing muted consonant
             if (MUTED_ENDED_CONSONANT.contains(c)) {
                 if (c != 'X') {
-                    return operatePhonetic(
+                    Set<String> encodedTokens = operatePhonetic(
                             substring(acc, 0, acc.length() - 1),
                             charAt(acc, acc.length() - 1),
                             ""
                     );
+                    if(NOT_ALWAYS_MUTED_ENDED_CONSONANT.contains(c)){
+                        if(c == 'C'){
+                            encodedTokens.add(acc+'K');
+                        } else {
+                            encodedTokens.add(acc+c);    
+                        }
+                        
+                    }
+                    return encodedTokens;
                 } else {
 
                     //X not pronounced when preceedeed with 8 sound, ou/oi sound, O sound
@@ -51,14 +66,16 @@ public class Encoder {
                             || (
                             acc.length() >= 2
                                     && "OI".equals(substring(acc, acc.length() - 2, acc.length()))
-                    )
+                                )
                             || (
                             acc.length() >= 3
                                     && !VOWELS.contains(charAt(acc, acc.length() - 3))
                                     && "RI".equals(substring(acc, acc.length() - 2, acc.length()))
-                    )
-                            ) {
-                        return acc;
+                            )
+                        ) {
+                        Set<String> encodedTokens = getSet(acc);
+                        encodedTokens.add(acc+'X');
+                        return encodedTokens;
                     }
                 }
             }
@@ -72,13 +89,16 @@ public class Encoder {
                 }
             }
 
+            //Vowel followed by h
             if (!acc.isEmpty() && VOWELS.contains(acc.charAt(acc.length() - 1)) && c == 'H') {
                 return operatePhonetic(acc, tail.charAt(0), substring(tail, 1, tail.length()));
             }
 
-            //SC as S
+            //SC as S or as SK
             if(c == 'S' && tail.length() >=2 && tail.charAt(0) == 'C' && (tail.charAt(1) == 'E' ||tail.charAt(1) == 'I' || tail.charAt(1) == 'Y')){
-                return operatePhonetic(acc + '5', tail.charAt(1), substring(tail, 2, tail.length()));
+                Set<String> encodedToken = operatePhonetic(acc + '5', tail.charAt(1), substring(tail, 2, tail.length()));
+                encodedToken.addAll(operatePhonetic(acc + "SK", tail.charAt(1), substring(tail, 2, tail.length())));
+                return encodedToken;
             }
 
             //C as S
@@ -129,7 +149,7 @@ public class Encoder {
                     if (tail.length() > 1)
                         return operatePhonetic(acc + '5', tail.charAt(1), substring(tail, 2, tail.length()));
                     else
-                        return acc + '5';
+                        return getSet(acc + '5');
                 } else if (acc.length() > 0 && MUTED_S_PRECEDING_VOWEL.contains(acc.charAt(acc.length() - 1))
                         && tail.length() > 1 && MUTED_S_FOLLOWING_CONSONANT.contains(tail.charAt(0))) { // Muted S
                     return operatePhonetic(acc, tail.charAt(0), substring(tail, 1, tail.length()));
@@ -160,7 +180,7 @@ public class Encoder {
             }
 
 
-            String replacedThreeLettersINSound = replaceThreeLettersINSound(acc, c, tail, 'A', 'E');
+            Set<String> replacedThreeLettersINSound = replaceThreeLettersINSound(acc, c, tail, 'A', 'E');
             if (replacedThreeLettersINSound != null) {
                 return replacedThreeLettersINSound;
             }
@@ -170,12 +190,12 @@ public class Encoder {
                 return operatePhonetic(acc + "O", charAt(tail, 2), substring(tail, 3, tail.length()));
             }
 
-            String replacedTwoLettersSounds = replaceTwoLettersSounds(acc, c, tail);
+            Set<String> replacedTwoLettersSounds = replaceTwoLettersSounds(acc, c, tail);
             if (replacedTwoLettersSounds != null) {
                 return replacedTwoLettersSounds;
             }
 
-            String handleJeanCase = handleJEANSpecialCase(acc, c, tail);
+            Set<String> handleJeanCase = handleJEANSpecialCase(acc, c, tail);
             if (handleJeanCase != null) {
                 return handleJeanCase;
             }
@@ -186,19 +206,21 @@ public class Encoder {
             }
 
             if(c == 'O' && "X".equals(tail)){
-                return acc +"OX";
+                return getSet(acc +"OX");
             }
 
         }
 
         if (c == 'E') {
-            String nextAcc = operatePhonetic("2", charAt(tail, 0), substring(tail, 1, tail.length()));
-            if ("2".equals(nextAcc)) {
-                return acc;
-            } else {
-                nextAcc = StringUtils.substringAfter(nextAcc, "2");
-            }
-            return acc + "2" + nextAcc;
+            Set<String> nextAccs = operatePhonetic("2", charAt(tail, 0), substring(tail, 1, tail.length()));
+            return nextAccs.stream().map(nextAcc->{
+                if ("2".equals(nextAcc)) {
+                    return acc;
+                } else {
+                    nextAcc = StringUtils.substringAfter(nextAcc, "2");
+                }
+                return acc + "2" + nextAcc;
+            }).collect(Collectors.toSet());
         }
 
         //Y as I
@@ -215,18 +237,18 @@ public class Encoder {
         return c != null && character != null && DOUBLE_CONSONANT.contains(c.charValue()) && character.charValue() == c.charValue();
     }
 
-    private static String replaceTwoLettersSounds(String acc, char c, String tail) {
+    private static Set<String> replaceTwoLettersSounds(String acc, char c, String tail) {
 
         //Trailing ER, ET and EZ as 2
         if (c == 'E' && tail.length() == 1 && (tail.charAt(0) == 'R' || tail.charAt(0) == 'T' || tail.charAt(0) == 'Z')) {
-            String encodedTail = operatePhonetic("", charAt(tail, 1), substring(tail, 2, tail.length()));
-            if (encodedTail.isEmpty()) {
-                return acc + "2";
-            } else {
-                return acc + "2" + tail.charAt(0) + encodedTail;
-            }
-
-
+            Set<String> encodedTails = operatePhonetic("", charAt(tail, 1), substring(tail, 2, tail.length()));
+            return encodedTails.stream().map(encodedTail -> {
+                if (encodedTail.isEmpty()) {
+                    return acc + "2";
+                } else {
+                    return acc + "2" + tail.charAt(0) + encodedTail;
+                }
+            }).collect(Collectors.toSet());
         }
 
         // AU as O
@@ -235,23 +257,23 @@ public class Encoder {
         }
 
 
-        String replacedAISound = replaceAISounds(acc, c, tail, 'A', 'E');
+        Set<String> replacedAISound = replaceAISounds(acc, c, tail, 'A', 'E');
         if (replacedAISound != null) {
             return replacedAISound;
         }
 
-        String replacedONSound = replaceONOrINOrANSound(acc, c, tail, "4", 'O');
+        Set<String> replacedONSound = replaceONOrINOrANSound(acc, c, tail, "4", 'O');
         if (replacedONSound != null) {
             return replacedONSound;
         }
 
 
-        String replacedINSound = replaceONOrINOrANSound(acc, c, tail, "1", 'Y', 'I', 'U');
+        Set<String> replacedINSound = replaceONOrINOrANSound(acc, c, tail, "1", 'Y', 'I', 'U');
         if (replacedINSound != null) {
             return replacedINSound;
         }
 
-        String replacedANSound = replaceONOrINOrANSound(acc, c, tail, "3", 'A', 'E');
+        Set<String> replacedANSound = replaceONOrINOrANSound(acc, c, tail, "3", 'A', 'E');
         if (replacedANSound != null) {
             return replacedANSound;
         }
@@ -265,10 +287,10 @@ public class Encoder {
      *
      * @return
      */
-    private static String handleJEANSpecialCase(String acc, char c, String tail) {
+    private static Set<String> handleJEANSpecialCase(String acc, char c, String tail) {
         if (c == 'J' && tail.length() > 2 && tail.charAt(0) == 'E' && tail.charAt(1) == 'A' && tail.charAt(2) == 'N') { // at least 3 trailing chars : EAN
             if (tail.length() == 3) {
-                return acc + "J3";
+                return getSet(acc + "J3");
             } else {
                 return operatePhonetic(acc + "JA", tail.charAt(2), substring(tail, 3, tail.length()));
             }
@@ -276,7 +298,7 @@ public class Encoder {
         return null;
     }
 
-    private static String replaceAISounds(String acc, char c, String tail, Character... firstLetters) {
+    private static Set<String> replaceAISounds(String acc, char c, String tail, Character... firstLetters) {
         if (Arrays.asList(firstLetters).contains(c) && (tail.charAt(0) == 'I' || tail.charAt(0) == 'Y')) {
             acc += "2";
             if (tail.charAt(0) == 'Y' && tail.length() != 1 && (c != 'E' || c == 'E' && VOWELS.contains(tail.charAt(1)))) {
@@ -284,14 +306,14 @@ public class Encoder {
             }
             //X is not pronounced in words ending with AIX
             if(c == 'A' && charAt(tail, 0) == 'I' && "X".equals(substring(tail, 1, tail.length()))){
-                return acc;
+                return getSet(acc);
             }
             return operatePhonetic(acc, charAt(tail, 1), substring(tail, 2, tail.length()));
         }
         return null;
     }
 
-    private static String replaceThreeLettersINSound(String acc, char c, String tail, Character... firstLetters) {
+    private static Set<String> replaceThreeLettersINSound(String acc, char c, String tail, Character... firstLetters) {
         if (Arrays.asList(firstLetters).contains(c) && tail.length() >= 2 &&
                 tail.charAt(0) == 'I' && (tail.charAt(1) == 'N' || tail.charAt(1) == 'M')) {
             if (tail.length() >= 3 && (tail.charAt(2) == 'M' || tail.charAt(2) == 'N' || tail.charAt(2) == 'H' || VOWELS.contains(tail.charAt(2)))) {
@@ -302,7 +324,7 @@ public class Encoder {
         return null;
     }
 
-    private static String replaceONOrINOrANSound(String acc, char c, String tail, String replaceValue, Character... firstLetters) {
+    private static Set<String> replaceONOrINOrANSound(String acc, char c, String tail, String replaceValue, Character... firstLetters) {
         if (Arrays.asList(firstLetters).contains(c)) {
             if (tail.charAt(0) == 'N' || tail.charAt(0) == 'M') {
                 if (tail.length() > 1 && (tail.charAt(1) == 'N' || tail.charAt(1) == 'M' || tail.charAt(1) == 'H' || VOWELS.contains(tail.charAt(1)))) {
