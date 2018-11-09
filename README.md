@@ -51,7 +51,12 @@ Si vous ne mettez pas le paramètre esYYX.version alors une version est prise pa
 
 Le plugin se trouve ensuite dans le module maven pour la version d'elasticsearch désirée et dans ce module sous l'arborescence suivante: ***/target/xxxxx.zip***
 
+### Release note:
 
+| Version         | Contenu                                                                                                |
+|-----------------|--------------------------------------------------------------------------------------------------------|
+|        1.0.0    | Le plugin encode phonétiquement. 1 token <=> 1 token encodé                                            |
+|        2.0.0    | Le plugin encode phonétiquement de différentes manières un même token. 1 token <=> 1...X tokens encodés|
 
 
 ## Contributeurs:
