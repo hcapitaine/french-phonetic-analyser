@@ -57,6 +57,7 @@ Le plugin se trouve ensuite dans le module maven pour la version d'elasticsearch
 |-----------------|--------------------------------------------------------------------------------------------------------|
 |        1.0.0    | Le plugin encode phonétiquement. 1 token <=> 1 token encodé                                            |
 |        2.0.0    | Le plugin encode phonétiquement de différentes manières un même token. 1 token <=> 1...X tokens encodés|
+|        2.0.0    | Version 6.5.X supportée. Packaging revu pour les versions plus récentes que 6.3.X                      |
 
 
 ## Contributeurs:
