@@ -20,6 +20,7 @@
         <module>es62X</module>
         <module>es63X</module>
         <module>es64X</module>
+        <module>es65X</module>
         <module>analyzer-test</module>
     </modules>
 
@@ -44,6 +45,7 @@
         <es62X.version>4</es62X.version>
         <es63X.version>2</es63X.version>
         <es64X.version>3</es64X.version>
+        <es65X.version>0</es65X.version>
     </properties>
 
     <dependencyManagement>

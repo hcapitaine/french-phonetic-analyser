@@ -112,7 +112,12 @@ public class FrenchPhoneticIT {
 
     @Test
     public void test_analyzer_with_version_64X() throws IOException, InterruptedException, URISyntaxException {
-        execute_test("6.4."+System.getProperty("es64.version"), "es-6.4.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
+        execute_test("6.4."+System.getProperty("es64X.version"), "es-6.4.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
+    }
+
+    @Test
+    public void test_analyzer_with_version_65X() throws IOException, InterruptedException, URISyntaxException {
+        execute_test("6.5."+System.getProperty("es65X.version"), "es-6.5.X.zip", "my_type_mapping.json", "my_index_settings.json", null);
     }
 
     @After

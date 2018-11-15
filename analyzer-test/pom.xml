@@ -77,6 +77,18 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
+        <dependency>
+            <groupId>com.galerieslafayette.analyzer</groupId>
+            <artifactId>es-6.4.X</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.galerieslafayette.analyzer</groupId>
+            <artifactId>es-6.5.X</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
 
 
         <dependency>
@@ -184,6 +196,7 @@
                         <es62X.version>${es62X.version}</es62X.version>
                         <es63X.version>${es63X.version}</es63X.version>
                         <es64X.version>${es64X.version}</es64X.version>
+                        <es65X.version>${es65X.version}</es65X.version>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -200,7 +213,7 @@
                         </goals>
                         <configuration>
                             <includeArtifactIds>
-                                es-5.1.X,es-5.2.X,es-5.3.X,es-5.4.X,es-5.5.X,es-5.6.X,es-6.0.X,es-6.1.X,es-6.2.X,es-6.3.X,es-6.4.X
+                                es-5.1.X,es-5.2.X,es-5.3.X,es-5.4.X,es-5.5.X,es-5.6.X,es-6.0.X,es-6.1.X,es-6.2.X,es-6.3.X,es-6.4.X,es-6.5.X
                             </includeArtifactIds>
                             <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
                             <stripVersion>true</stripVersion>
