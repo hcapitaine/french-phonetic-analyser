@@ -60,8 +60,8 @@ public class Encoder {
                 } else {
 
                     //X not pronounced when preceedeed with 8 sound, ou/oi sound, O sound
-                    if (charAt(acc, acc.length() - 1) == '8'
-                            || charAt(acc, acc.length() - 1) == 'O'
+                    if (charAt(acc, acc.length() - 1) == Character.valueOf('8')
+                            || charAt(acc, acc.length() - 1) == Character.valueOf('O')
                             || (acc.length() >= 2 && "OU".equals(substring(acc, acc.length() - 2, acc.length())))
                             || (
                             acc.length() >= 2
@@ -83,85 +83,93 @@ public class Encoder {
         } else {
 
             //Muted starting H with vowels
-            if ((acc.isEmpty() || (acc.charAt(acc.length() - 1) != 'C' && acc.charAt(acc.length() - 1) != 'S')) && c == 'H') {
-                if (VOWELS.contains(tail.charAt(0))) {
-                    return operatePhonetic(acc, tail.charAt(0), substring(tail, 1, tail.length()));
+            if ((acc.isEmpty() || (charAt(acc, acc.length() - 1) != Character.valueOf('C') && charAt(acc, acc.length() - 1) != Character.valueOf('S'))) && c == 'H') {
+                if (VOWELS.contains(charAt(tail, 0))) {
+                    return operatePhonetic(acc, charAt(tail, 0), substring(tail, 1, tail.length()));
                 }
             }
 
             //Vowel followed by h
-            if (!acc.isEmpty() && VOWELS.contains(acc.charAt(acc.length() - 1)) && c == 'H') {
-                return operatePhonetic(acc, tail.charAt(0), substring(tail, 1, tail.length()));
+            if (!acc.isEmpty() && VOWELS.contains(charAt(acc, acc.length() - 1)) && c == 'H') {
+                return operatePhonetic(acc, charAt(tail, 0), substring(tail, 1, tail.length()));
             }
 
             //SC as S or as SK
-            if(c == 'S' && tail.length() >=2 && tail.charAt(0) == 'C' && (tail.charAt(1) == 'E' ||tail.charAt(1) == 'I' || tail.charAt(1) == 'Y')){
-                Set<String> encodedToken = operatePhonetic(acc + '5', tail.charAt(1), substring(tail, 2, tail.length()));
-                encodedToken.addAll(operatePhonetic(acc + "SK", tail.charAt(1), substring(tail, 2, tail.length())));
+            if(c == 'S' && tail.length() >=2 && charAt(tail, 0) == Character.valueOf('C') && (charAt(tail, 1) == Character.valueOf('E') ||charAt(tail, 1) == Character.valueOf('I') || charAt(tail, 1) == Character.valueOf('Y'))){
+                Set<String> encodedToken = operatePhonetic(acc + '5', charAt(tail, 1), substring(tail, 2, tail.length()));
+                encodedToken.addAll(operatePhonetic(acc + "SK", charAt(tail, 1), substring(tail, 2, tail.length())));
                 return encodedToken;
             }
 
             //C as S
-            if (c == 'C' && (tail.charAt(0) == 'E' || tail.charAt(0) == 'I' || tail.charAt(0) == 'Y')) {
-                return operatePhonetic(acc + '5', tail.charAt(0), substring(tail, 1, tail.length()));
+            if (c == 'C' && (charAt(tail, 0) == Character.valueOf('E') || charAt(tail, 0) == Character.valueOf('I') || charAt(tail, 0) == Character.valueOf('Y'))) {
+                return operatePhonetic(acc + '5', charAt(tail, 0), substring(tail, 1, tail.length()));
             } else {
-                if(c == 'C' && charAt(tail, 0) == 'H'){
-                    //CH followed by 2 vowels as K
-                    if(VOWELS.contains(charAt(tail, 1)) && VOWELS.contains(charAt(tail, 2))){
-                        return operatePhonetic(acc +'K', charAt(tail, 1), substring(tail, 2, tail.length()));
+                if(c == 'C' && charAt(tail, 0) == Character.valueOf('H')){
+
+                    if(charAt(tail, 1) == null){
+                        HashSet<String> encodedTokens = new HashSet<>();
+                        encodedTokens.add(acc+"CH");
+                        encodedTokens.add(acc+"K");
+                        return encodedTokens;
                     } else {
-                        //CHR / CHL as KR / KL
-                        if((charAt(tail, 1) == 'R' || charAt(tail, 1) == 'L') && VOWELS.contains(charAt(tail, 2))){
-                            return operatePhonetic(acc +'K', charAt(tail, 1), substring(tail, 2, tail.length()));
+                        //CH followed by 2 vowels as K
+                        if (VOWELS.contains(charAt(tail, 1)) && VOWELS.contains(charAt(tail, 2))) {
+                            return operatePhonetic(acc + 'K', charAt(tail, 1), substring(tail, 2, tail.length()));
+                        } else {
+                            //CHR / CHL as KR / KL
+                            if ((charAt(tail, 1) == Character.valueOf('R') || charAt(tail, 1) == Character.valueOf('L')) && VOWELS.contains(charAt(tail, 2))) {
+                                return operatePhonetic(acc + 'K', charAt(tail, 1), substring(tail, 2, tail.length()));
+                            }
+                            return operatePhonetic(acc + "C", charAt(tail, 0), substring(tail, 1, tail.length()));
                         }
-                        return operatePhonetic(acc +"C", charAt(tail, 0), substring(tail, 1, tail.length()));
                     }
                 }
                 //C as K
-                if (c == 'C' && tail.charAt(0) != 'E' && tail.charAt(0) != 'I' && tail.charAt(0) != 'Y' && tail.charAt(0) != 'H') {
-                    if (!acc.isEmpty() && charAt(acc, acc.length() - 1) == 'K' || charAt(tail, 0) == 'K') {
-                        return operatePhonetic(acc, tail.charAt(0), substring(tail, 1, tail.length()));
+                if (c == 'C' && charAt(tail, 0) != Character.valueOf('E') && charAt(tail, 0) != Character.valueOf('I') && charAt(tail, 0) != Character.valueOf('Y') && charAt(tail, 0) != Character.valueOf('H')) {
+                    if (!acc.isEmpty() && charAt(acc, acc.length() - 1) == Character.valueOf('K') || charAt(tail, 0) == Character.valueOf('K')) {
+                        return operatePhonetic(acc, charAt(tail, 0), substring(tail, 1, tail.length()));
                     } else {
-                        return operatePhonetic(acc + 'K', tail.charAt(0), substring(tail, 1, tail.length()));
+                        return operatePhonetic(acc + 'K', charAt(tail, 0), substring(tail, 1, tail.length()));
                     }
                 }
             }
 
-            if (c == 'O' && tail.length() >= 2 && charAt(tail, 0) == 'E' && charAt(tail, 1) == 'U') {
+            if (c == 'O' && tail.length() >= 2 && charAt(tail, 0) == Character.valueOf('E') && charAt(tail, 1) == Character.valueOf('U')) {
                 return operatePhonetic(acc + "8", charAt(tail, 2), substring(tail, 3, tail.length()));
             }
 
-            if (c == 'E' && charAt(tail, 0) == 'U') {
+            if (c == 'E' && charAt(tail, 0) == Character.valueOf('U')) {
                 return operatePhonetic(acc + "8", charAt(tail, 1), substring(tail, 2, tail.length()));
             }
 
             //G as J : ge, gi, gy, gé, gè, gë, gê
-            if (c == 'G' && (tail.charAt(0) == 'E' || tail.charAt(0) == 'I' || tail.charAt(0) == 'Y' || tail.charAt(0) == '2')) {
-                return operatePhonetic(acc + 'J', tail.charAt(0), substring(tail, 1, tail.length()));
+            if (c == 'G' && (charAt(tail, 0) == Character.valueOf('E') || charAt(tail, 0) == Character.valueOf('I') || charAt(tail, 0) == Character.valueOf('Y') || charAt(tail, 0) == Character.valueOf('2'))) {
+                return operatePhonetic(acc + 'J', charAt(tail, 0), substring(tail, 1, tail.length()));
             }
 
 
             if (c == 'S') {
                 //S as Z
-                if (!acc.isEmpty() && VOWELS.contains(acc.charAt(acc.length() - 1)) && VOWELS.contains(tail.charAt(0))) {
-                    return operatePhonetic(acc + 'Z', tail.charAt(0), substring(tail, 1, tail.length()));
-                } else if (tail.charAt(0) == 'S') { // SS as 5
+                if (!acc.isEmpty() && VOWELS.contains(charAt(acc, acc.length() - 1)) && VOWELS.contains(charAt(tail, 0))) {
+                    return operatePhonetic(acc + 'Z', charAt(tail, 0), substring(tail, 1, tail.length()));
+                } else if (charAt(tail, 0) == Character.valueOf('S')) { // SS as 5
                     if (tail.length() > 1)
-                        return operatePhonetic(acc + '5', tail.charAt(1), substring(tail, 2, tail.length()));
+                        return operatePhonetic(acc + '5', charAt(tail, 1), substring(tail, 2, tail.length()));
                     else
                         return getSet(acc + '5');
-                } else if (acc.length() > 0 && MUTED_S_PRECEDING_VOWEL.contains(acc.charAt(acc.length() - 1))
-                        && tail.length() > 1 && MUTED_S_FOLLOWING_CONSONANT.contains(tail.charAt(0))) { // Muted S
-                    return operatePhonetic(acc, tail.charAt(0), substring(tail, 1, tail.length()));
+                } else if (acc.length() > 0 && MUTED_S_PRECEDING_VOWEL.contains(charAt(acc, acc.length() - 1))
+                        && tail.length() > 1 && MUTED_S_FOLLOWING_CONSONANT.contains(charAt(tail, 0))) { // Muted S
+                    return operatePhonetic(acc, charAt(tail, 0), substring(tail, 1, tail.length()));
                 } else { //S as 5
-                    return operatePhonetic(acc + '5', tail.charAt(0), substring(tail, 1, tail.length()));
+                    return operatePhonetic(acc + '5', charAt(tail, 0), substring(tail, 1, tail.length()));
                 }
             }
 
 
             //W as V
             if (c == 'W') {
-                return operatePhonetic(acc + 'V', tail.charAt(0), substring(tail, 1, tail.length()));
+                return operatePhonetic(acc + 'V', charAt(tail, 0), substring(tail, 1, tail.length()));
             }
 
             //remove double consonant ex
@@ -170,12 +178,12 @@ public class Encoder {
             }
 
             //Q, QU as K
-            if (c == 'Q' && tail.charAt(0) == 'U') {
+            if (c == 'Q' && charAt(tail, 0) == Character.valueOf('U')) {
                 return operatePhonetic(acc + 'K', charAt(tail, 1), substring(tail, 2, tail.length()));
             }
 
             //PH as F
-            if (c == 'P' && tail.charAt(0) == 'H') {
+            if (c == 'P' && charAt(tail, 0) == Character.valueOf('H')) {
                 return operatePhonetic(acc + 'F', charAt(tail, 1), substring(tail, 2, tail.length()));
             }
 
@@ -186,7 +194,7 @@ public class Encoder {
             }
 
             //EAU as O
-            if (c == 'E' && tail.length() >= 2 && tail.charAt(0) == 'A' && tail.charAt(1) == 'U') {
+            if (c == 'E' && tail.length() >= 2 && charAt(tail, 0) == Character.valueOf('A') && charAt(tail, 1) == Character.valueOf('U')) {
                 return operatePhonetic(acc + "O", charAt(tail, 2), substring(tail, 3, tail.length()));
             }
 

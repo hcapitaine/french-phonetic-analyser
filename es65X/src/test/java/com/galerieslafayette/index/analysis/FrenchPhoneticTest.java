@@ -736,4 +736,12 @@ public class FrenchPhoneticTest {
         List<String> encode = frenchPhonetic.encode("PAIX");
         Assertions.assertThat(encode).containsOnly("P2");
     }
+
+    @Test
+    public void testEncodeFinalCH(){
+        FrenchPhoneticAnalyzer frenchPhonetic = new FrenchPhoneticAnalyzer(new FakeTokenStream());
+        List<String> encode = frenchPhonetic.encode("auroch");
+        Assertions.assertThat(encode).containsOnly("OROK", "OROCH");
+    }
+
 }
